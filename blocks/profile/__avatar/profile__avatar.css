@@ -1,0 +1,10 @@
+.profile__avatar {
+    max-width: 128px;
+    border-radius: 50%;
+}
+
+@media screen and (min-width: 769px) {
+    .profile__avatar {
+        margin-right: 30px;
+    }
+}

@@ -1,11 +1,11 @@
 .header {
     margin: 0;
     padding: 28px 0 32px 27px;
-    border: solid 1px #545454;
+    border-bottom: solid 1px #545454;
 }
 
 @media screen and (min-width: 769px) {
     .header {
-        padding: 40px 0 41px 200px;
+        padding: 40px 0 41px 0;
     }
 }
