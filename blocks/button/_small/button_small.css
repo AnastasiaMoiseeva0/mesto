@@ -1,0 +1,13 @@
+.button_small {
+    margin-left: 10px;
+    min-width: 18px;
+    height: 18px;
+}
+
+@media screen and (min-width: 769px) {
+    .button_small {
+        min-width: 24px;
+        height: 24px;
+        margin-left: 18px;
+    }
+}
