@@ -1,0 +1,13 @@
+.popup__close {
+    width: 282px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: end;
+}
+
+@media screen and (min-width: 769px) {
+    .popup__close {
+        width: 510px;
+        margin-bottom: 8px;  
+    }
+}
