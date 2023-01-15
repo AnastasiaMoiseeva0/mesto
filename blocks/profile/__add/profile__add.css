@@ -1,0 +1,11 @@
+.profile__add {
+    margin-top: 33px;
+    width: 282px;
+}
+
+@media screen and (min-width: 769px) {
+    .profile__add {
+        margin-top: 34px;
+        width: 150px;
+    }
+}

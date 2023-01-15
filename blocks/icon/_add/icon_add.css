@@ -1,0 +1,9 @@
+.icon_add {
+    max-width: 16px;
+}
+
+@media screen and (min-width: 769px) {
+    .icon_add {
+        max-width: 22px;
+    }
+}
