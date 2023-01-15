@@ -1,18 +1,18 @@
 let editProfileButton = document.querySelector('#edit-profile-button');
-let modalHost = document.querySelector('#host');
+let popupHost = document.querySelector('#host');
 
 function openEditProfilePopup() {
-    let closeModalButton = modalHost.querySelector('#closeButton');
+    let closePopupButton = popupHost.querySelector('#closeButton');
 
-    let formElement = modalHost.querySelector('#formElement');
-    let nameInput = modalHost.querySelector('#nameInput');
-    let jobInput = modalHost.querySelector('#jobInput');
+    let formElement = popupHost.querySelector('#formElement');
+    let nameInput = popupHost.querySelector('#nameInput');
+    let jobInput = popupHost.querySelector('#jobInput');
 
-    function closeModal() {
+    function closePopup() {
         formElement.removeEventListener('submit', handleFormSubmit);
 
-        closeModalButton.removeEventListener('click', closeModal);
-        modalHost.innerHTML = '';
+        closePopupButton.removeEventListener('click', closePopup);
+        popupHost.innerHTML = '';
     }
 
     function handleFormSubmit (evt) {
@@ -28,11 +28,11 @@ function openEditProfilePopup() {
         profileProfession.textContent = job;
     }
 
-    modalHost.innerHTML = `
-      <div class="modal">
-        <div class="modal__close">
+    popupHost.innerHTML = `
+      <div class="popup">
+        <div class="popup__close">
           <button id="closeButton" class="button button_transparent button_size-medium">
-            <img class="icon icon_close" src="./images/modal-close_icon.svg" alt="Кнопка 'Закрыть окно'">
+            <img class="icon icon_close" src="./images/popup-close_icon.svg" alt="Кнопка 'Закрыть окно'">
           </button>
         </div>
         <form id="formElement" class="edit-form">
@@ -45,7 +45,7 @@ function openEditProfilePopup() {
     `;
 
     formElement.addEventListener('submit', handleFormSubmit);
-    closeModalButton.addEventListener('click', closeModal);
+    closePopupButton.addEventListener('click', closePopup);
 }
 
 editProfileButton.addEventListener('click', openEditProfilePopup);
