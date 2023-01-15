@@ -11,7 +11,7 @@
     .profile {
         grid-template-columns: max-content auto 150px;
         justify-items: left;
-        margin-top: 40px;
+        margin-top: 38px;
         margin-bottom: 51px;
     }
 }

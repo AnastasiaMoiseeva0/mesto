@@ -1,0 +1,13 @@
+.button_size-medium {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: end;
+}
+
+@media screen and (min-width: 769px) {
+    .button_size-medium {
+        width: 32px;
+        height: 32px;
+    }
+}
