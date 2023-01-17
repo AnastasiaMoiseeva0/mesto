@@ -1,4 +1,5 @@
 .edit-form {
+    position: relative;
     box-sizing: border-box;
     box-shadow: rgba(0, 0, 0, 0.15);
     background-color: #FFF;

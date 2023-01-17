@@ -1,8 +1,12 @@
 .edit-form__submit {
-    margin-top: 15px;
-    margin-bottom: 25px;
+    margin-top: 13px;
+    margin-bottom: 22px;
     border-radius: 2px;
     border: none;
+}
+
+.edit-form__submit:hover {
+    opacity: .8;
 }
 
 @media screen and (min-width: 769px) {

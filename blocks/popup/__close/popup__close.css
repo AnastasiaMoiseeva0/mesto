@@ -1,13 +1,15 @@
 .popup__close {
-    width: 282px;
-    margin-bottom: 16px;
+    position: absolute;
+    right: 0px;
+    top: -36px;
     display: flex;
+    align-items: flex-start;
     justify-content: end;
 }
 
 @media screen and (min-width: 769px) {
     .popup__close {
-        width: 510px;
-        margin-bottom: 8px;  
+        right: -40px;
+        top: -40px;
     }
 }

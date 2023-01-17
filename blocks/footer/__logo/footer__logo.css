@@ -1,9 +1,15 @@
 .footer__logo {
-    height: 12px;
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #545454;
+    margin: 0;
 }
 
 @media screen and (min-width: 769px) {
     .footer__logo {
-        height: 15px;
+        font-size: 18px;
+        line-height: 22px;
     }
 }

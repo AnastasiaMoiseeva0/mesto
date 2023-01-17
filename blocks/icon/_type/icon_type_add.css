@@ -1,0 +1,13 @@
+.icon_type_add {
+    background-image: url(../../../images/profile-plus.svg);
+    width: 16px;
+    height: 16px;
+    background-size: cover;
+}
+
+@media screen and (min-width: 769px) {
+    .icon_type_add {
+        width: 22px;
+        height: 22px;
+    }
+}
