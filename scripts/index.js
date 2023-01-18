@@ -8,10 +8,16 @@ let formElement = document.querySelector('#formElement');
 let nameInput = document.querySelector('#nameInput');
 let jobInput = document.querySelector('#jobInput');
 
+let profileName = document.querySelector('#profileName');
+let profileProfession = document.querySelector('#profileProfession');
+
 /* Функция открытия popup*/
 
 function openEditProfilePopup() {
   popup.classList.add('popup_opened');
+
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileProfession.textContent;
 }
 
 /* Функция сохранения изменений, вносимых пользователем, закрытие модального окна при нажатии на кнопку 'сохранить'*/
@@ -21,9 +27,6 @@ function handleFormSubmit (evt) {
 
   let name = nameInput.value;
   let job = jobInput.value;
-
-  let profileName = document.querySelector('#profileName');
-  let profileProfession = document.querySelector('#profileProfession');
 
   profileName.textContent = name;
   profileProfession.textContent = job;

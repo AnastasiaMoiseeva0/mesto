@@ -1,20 +1,4 @@
 .edit-form {
-    position: relative;
-    box-sizing: border-box;
-    box-shadow: rgba(0, 0, 0, 0.15);
-    background-color: #FFF;
-    border-radius: 10px;
-    width: 282px;
     display: flex;
     flex-direction: column;
-    padding-left: 22px;
-    padding-right: 22px;
-}
-
-@media screen and (min-width: 769px) {
-    .edit-form {
-        width: 430px;
-        padding-left: 36px;
-        padding-right: 36px;
-    }
 }
