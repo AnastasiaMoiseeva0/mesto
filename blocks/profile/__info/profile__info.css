@@ -8,5 +8,6 @@
 @media screen and (min-width: 769px) {
     .profile__info {
         text-align: start;
+        align-items: initial;
     }
 }
