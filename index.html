@@ -20,59 +20,27 @@
           </div>
           <p id="profileProfession" class="profile__profession">Исследователь океана</p>
         </div>
-        <button type="button" class="button button_border_wide profile__add"></button>
+        <button type="button" id="add-card-button" class="button button_border_wide profile__add"></button>
       </section>
-      <section class="places">
-        <article class="place">
-          <img class="place__photo" src="./images/element-karachaevsk.jpg" alt="Заброшенная церковь">
-          <div class="place__info">
-            <h2 class="place__title">Карачаевск</h2>
-            <button type="button" class="button button_background_transparent place__icon-like"></button>
-          </div>
-        </article>
-        <article class="place">
-          <img class="place__photo" src="./images/element-elbrus.jpg" alt="Горы и закат">
-          <div class="place__info">
-            <h2 class="place__title">Гора Эльбрус</h2>
-            <button type="button" class="button button_background_transparent place__icon-like"></button>
-          </div>
-        </article>
-        <article class="place">
-          <img class="place__photo" src="./images/element-dombay.jpg" alt="Заснеженные горы и лес">
-          <div class="place__info">
-            <h2 class="place__title">Домбай</h2>
-            <button type="button" class="button button_background_transparent place__icon-like"></button>
-          </div>
-        </article>
-        <article class="place">
-          <img class="place__photo" src="./images/element-elbrus.jpg" alt="Горы и закат">
-          <div class="place__info">
-            <h2 class="place__title">Гора Эльбрус</h2>
-            <button type="button" class="button button_background_transparent place__icon-like"></button>
-          </div>
-        </article>
-        <article class="place">
-          <img class="place__photo" src="./images/element-dombay.jpg" alt="Заснеженные горы и лес">
-          <div class="place__info">
-            <h2 class="place__title">Домбай</h2>
-            <button type="button" class="button button_background_transparent place__icon-like"></button>
-          </div>
-        </article>
-        <article class="place">
-          <img class="place__photo" src="./images/element-karachaevsk.jpg" alt="Заброшенная церковь">
-          <div class="place__info">
-            <h2 class="place__title">Карачаево-Черкессия</h2>
-            <button type="button" class="button button_background_transparent place__icon-like"></button>
-          </div>
-        </article>
+      <section id="placesContainer" class="places">
+        <template id="place">
+          <article class="place">
+            <button type="button" id="button-trash" class="button button_background_transparent button_size_small place__icon-trash"></button>
+            <img id="urlPlace" class="place__photo">
+            <div class="place__info">
+              <h2 id="titlePlace" class="place__title"></h2>
+              <button type="button" id="button-like" class="button button_background_transparent place__icon-like"></button>
+            </div>
+          </article>
+        </template>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__logo">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div id="popup" class="popup"> 
+    <div id="popupEditForm" class="popup"> 
       <div class="popup__container">
-        <button type="button" id="closeButton" class="button button_background_transparent popup__close"></button>
+        <button type="button" id="closeEditFormButton" class="button button_background_transparent popup__close"></button>
         <form id="formElement" class="edit-form" name="editForm">
           <h2 class="edit-form__title">Редактировать профиль</h2>
           <input id="nameInput" class="edit-form__field" type="text" placeholder="Имя" name="nameInput" value="Жак-Ив Кусто" required>
@@ -80,6 +48,19 @@
           <button type="submit" class="edit-form__submit button">Сохранить</button>
         </form>
       </div>
+    </div>
+    <div id="popupNewCardForm" class="popup">
+      <div class="popup__container">
+        <button type="button" id="closeNewCardFormButton" class="button button_background_transparent popup__close"></button>
+        <form id="cardElement" class="edit-form" name="cardForm">
+          <h2 class="edit-form__title">Новое место</h2>
+          <input id="placeTitleInput" class="edit-form__field" type="text" placeholder="Название" name="titleInput" required>
+          <input id="urlInput" class="edit-form__field" type="text" placeholder="Ссылка на картинку" name="urlInput" required>
+          <button type="submit" class="edit-form__submit button">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div id="popupImage" class="popup">
     </div>
     <script src="./scripts/index.js"></script>
   </body>
