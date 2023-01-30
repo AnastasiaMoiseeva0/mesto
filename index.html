@@ -7,6 +7,7 @@
     <title>Mesto</title>
   </head>
   <body class="page"> 
+    <input>
     <header class="header">
         <img class="header__logo" src="./images/mesto-logo.svg" alt="Логотип Mesto Russia">
     </header>
@@ -39,7 +40,7 @@
       <p class="footer__logo">&copy; 2020 Mesto Russia</p>
     </footer>
     <div id="popupEditForm" class="popup"> 
-      <div class="popup__container">
+      <div class="popup__container popup__container_white">
         <button type="button" id="closeEditFormButton" class="button button_background_transparent popup__close"></button>
         <form id="formElement" class="edit-form" name="editForm">
           <h2 class="edit-form__title">Редактировать профиль</h2>
@@ -50,7 +51,7 @@
       </div>
     </div>
     <div id="popupNewCardForm" class="popup">
-      <div class="popup__container">
+      <div class="popup__container popup__container_white">
         <button type="button" id="closeNewCardFormButton" class="button button_background_transparent popup__close"></button>
         <form id="cardElement" class="edit-form" name="cardForm">
           <h2 class="edit-form__title">Новое место</h2>
@@ -60,7 +61,14 @@
         </form>
       </div>
     </div>
-    <div id="popupImage" class="popup">
+    <div id="popupImage" class="popup popup_background-dark">
+      <div class="popup__container popup__container_wide">
+        <button type="button" id="closePopupImageButton" class="button button_background_transparent popup__close"></button>
+        <div>
+          <img id="popupPhoto" class="popup__photo">
+          <figcaption id="popupCaption" class="popup__caption"></figcaption>
+        </div>
+      </div>
     </div>
     <script src="./scripts/index.js"></script>
   </body>
