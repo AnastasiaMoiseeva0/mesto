@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
   </head>
-  <body class="page"> 
+  <body class="page">
     <header class="header">
         <img class="header__logo" src="./images/mesto-logo.svg" alt="Логотип Mesto Russia">
     </header>
@@ -41,7 +41,7 @@
     <div id="popupEditForm" class="popup"> 
       <div class="popup__container popup__container_white">
         <button type="button" id="closeEditFormButton" class="button button_background_transparent popup__close"></button>
-        <form id="formElement" class="edit-form" name="editForm">
+        <form id="profileForm" class="edit-form" name="editForm">
           <h2 class="edit-form__title">Редактировать профиль</h2>
           <input id="nameInput" class="edit-form__field" type="text" placeholder="Имя" name="nameInput" value="Жак-Ив Кусто" required>
           <input id="jobInput" class="edit-form__field" type="text" placeholder="О себе" name="jobInput" value="Исследователь океана" required>
@@ -51,8 +51,8 @@
     </div>
     <div id="popupNewCardForm" class="popup">
       <div class="popup__container popup__container_white">
-        <button type="button" id="closeNewCardFormButton" class="button button_background_transparent popup__close"></button>
-        <form id="cardElement" class="edit-form" name="cardForm">
+        <button type="button" id="newCardButtonClose" class="button button_background_transparent popup__close"></button>
+        <form id="cardForm" class="edit-form" name="cardForm">
           <h2 class="edit-form__title">Новое место</h2>
           <input id="placeTitleInput" class="edit-form__field" type="text" placeholder="Название" name="titleInput" required>
           <input id="urlInput" class="edit-form__field" type="text" placeholder="Ссылка на картинку" name="urlInput" required>
@@ -62,13 +62,14 @@
     </div>
     <div id="popupImage" class="popup popup_background-dark">
       <div class="popup__container popup__container_wide">
-        <button type="button" id="closePopupImageButton" class="button button_background_transparent popup__close"></button>
+        <button type="button" id="popupImageCloseButton" class="button button_background_transparent popup__close"></button>
         <div>
           <img id="popupPhoto" class="popup__photo">
           <figcaption id="popupCaption" class="popup__caption"></figcaption>
         </div>
       </div>
     </div>
+    <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
