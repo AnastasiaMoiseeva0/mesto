@@ -20,6 +20,9 @@ const popupCaption = document.querySelector("#popupCaption");
 const profileName = document.querySelector("#profileName");
 const profileProfession = document.querySelector("#profileProfession");
 
+const placeTitleInput = document.querySelector("#placeTitleInput");
+const urlInput = document.querySelector("#urlInput");
+
 const placeTemplate = document.querySelector("#place").content; //находим содержимое template
 const placesContainer = document.querySelector("#placesContainer"); //сохраняем в переменную контейнер с карточками
 
@@ -40,8 +43,7 @@ function openEditProfilePopup() {
 function openNewCardFormPopup() {
   openPopup(popupNewCardForm);
 
-  placeTitleInput.value = "";
-  urlInput.value = "";
+  cardForm.reset();
 }
 
 function openImagePopup(cardData) {
@@ -49,8 +51,9 @@ function openImagePopup(cardData) {
 
   popupCaption.textContent = cardData.name;
   popupPhoto.src = cardData.link;
-  popupPhoto.setAttribute("alt", cardData.name);
+  popupPhoto.alt = cardData.name;
 }
+
 /** Функция сохранения изменений, вносимых пользователем, закрытие модального окна при нажатии на кнопку 'сохранить'*/
 
 function handleProfileFormSubmit(evt) {
@@ -90,7 +93,7 @@ function createNewCard(cardData) {
 
   newCardImage.src = cardData.link;
   newCard.querySelector("#titlePlace").textContent = cardData.name;
-  newCard.setAttribute("alt", cardData.name);
+  newCardImage.alt = cardData.name;
 
   const buttonLike = newCard.querySelector("#button-like");
 
