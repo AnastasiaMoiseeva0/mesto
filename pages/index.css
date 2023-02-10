@@ -15,6 +15,8 @@
 @import url(../blocks/popup/__caption/popup__caption.css);
 @import url(../blocks/edit-form/edit-form.css);
 @import url(../blocks/edit-form/__field/edit-form__field.css);
+@import url(../blocks/edit-form/__field-error/edit-form__field-error_active.css);
+@import url(../blocks/edit-form/__field/_type/edit-form__field_type_error.css);
 @import url(../blocks/edit-form/__title/edit-form__title.css);
 @import url(../blocks/edit-form/__submit/edit-form__submit.css);
 @import url(../blocks/profile/profile.css);
@@ -29,6 +31,7 @@
 @import url(../blocks/button/_border/button_border_wide.css);
 @import url(../blocks/button/_size/button_size_small.css);
 @import url(../blocks/button/_background/button_background_transparent.css);
+@import url(../blocks/button/_disabled/button_disabled.css);
 @import url(../blocks/places/places.css);
 @import url(../blocks/place/place.css);
 @import url(../blocks/place/__icon-like/place__icon-like.css);

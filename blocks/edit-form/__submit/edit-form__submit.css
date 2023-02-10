@@ -1,6 +1,6 @@
 .edit-form__submit {
-    margin-top: 13px;
-    margin-bottom: 22px;
+    margin-top: 45px;
+    margin-bottom: 25px;
     border-radius: 2px;
     border: none;
 }
@@ -11,7 +11,7 @@
 
 @media screen and (min-width: 769px) {
     .edit-form__submit {
-        margin-top: 18px;
+        margin-top: 48px;
         margin-bottom: 37px;
     }
 }

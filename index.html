@@ -41,10 +41,12 @@
     <div id="popupEditForm" class="popup"> 
       <div class="popup__container popup__container_white">
         <button type="button" id="closeEditFormButton" class="button button_background_transparent popup__close"></button>
-        <form id="profileForm" class="edit-form" name="editForm">
+        <form id="profileForm" class="edit-form" name="editForm" novalidate>
           <h2 class="edit-form__title">Редактировать профиль</h2>
-          <input id="nameInput" class="edit-form__field" type="text" placeholder="Имя" name="nameInput" value="Жак-Ив Кусто" required>
-          <input id="jobInput" class="edit-form__field" type="text" placeholder="О себе" name="jobInput" value="Исследователь океана" required>
+          <input id="nameInput" class="edit-form__field" placeholder="Имя" type="text" name="nameInput" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+          <span class="nameInput-error"></span>
+          <input id="jobInput" class="edit-form__field" placeholder="О себе" type="text" name="jobInput" value="Исследователь океана" minlength="2" maxlength="200" required>
+          <span class="jobInput-error"></span>
           <button type="submit" class="edit-form__submit button">Сохранить</button>
         </form>
       </div>
@@ -52,10 +54,12 @@
     <div id="popupNewCardForm" class="popup">
       <div class="popup__container popup__container_white">
         <button type="button" id="newCardButtonClose" class="button button_background_transparent popup__close"></button>
-        <form id="cardForm" class="edit-form" name="cardForm">
+        <form id="cardForm" class="edit-form" name="cardForm" novalidate>
           <h2 class="edit-form__title">Новое место</h2>
-          <input id="placeTitleInput" class="edit-form__field" type="text" placeholder="Название" name="titleInput" required>
-          <input id="urlInput" class="edit-form__field" type="text" placeholder="Ссылка на картинку" name="urlInput" required>
+          <input id="placeTitleInput" class="edit-form__field" type="text" placeholder="Название" name="titleInput" minlength="2" maxlength="30" required>
+          <span class="placeTitleInput-error"></span>
+          <input id="urlInput" class="edit-form__field" type="url" placeholder="Ссылка на картинку" name="urlInput" required>
+          <span class="urlInput-error"></span>
           <button type="submit" class="edit-form__submit button">Создать</button>
         </form>
       </div>
@@ -69,6 +73,7 @@
         </div>
       </div>
     </div>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
