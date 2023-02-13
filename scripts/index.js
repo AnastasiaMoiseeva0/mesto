@@ -2,9 +2,6 @@
 const profileEditButton = document.querySelector("#edit-profile-button");
 
 const newCardButton = document.querySelector("#add-card-button");
-const profileFormCloseButton = document.querySelector("#closeEditFormButton");
-const newCardCloseButton = document.querySelector("#newCardButtonClose");
-const popupImageCloseButton = document.querySelector("#popupImageCloseButton");
 
 const popupEditForm = document.querySelector("#popupEditForm");
 const popupNewCardForm = document.querySelector("#popupNewCardForm");
@@ -26,9 +23,28 @@ const urlInput = document.querySelector("#urlInput");
 const placeTemplate = document.querySelector("#place").content; //находим содержимое template
 const placesContainer = document.querySelector("#placesContainer"); //сохраняем в переменную контейнер с карточками
 
+const config = {
+  popupClass: ".popup",
+  popupCloseButtonClass: ".popup__close",
+  editFormSelector: ".edit-form",
+  editFormFieldSelector: ".edit-form__field",
+  editFormErrorActiveClass: "edit-form__field-error_active",
+  editFormTypeErrorClass: "edit-form__field_type_error",
+  editFormSubmitSelector: ".edit-form__submit",
+};
+
+
+const allPopups = [
+  popupEditForm,
+  popupNewCardForm,
+  popupImage,
+];
+
 function openPopup(popupElement) {
   //аргументом в функцию передаем элемент popup, который мы открываем и коллбэк, выполняемый после открытия
   popupElement.classList.add("popup_opened");
+  
+  document.addEventListener("keydown", (evt) => keyHandlerEsc(evt, popupElement));
 }
 
 function openEditProfilePopup() {
@@ -115,6 +131,9 @@ function createNewCard(cardData) {
 /** Функция закрытия popup */
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
+  resetValidation(popupElement, config);
+
+  document.removeEventListener("keydown", (evt) => keyHandlerEsc(evt, popupElement));
 }
 
 function closeEditFormPopup() {
@@ -138,11 +157,34 @@ const placesElements = initialCards.map((elem) => {
 
 placesContainer.prepend(...placesElements);
 
+/** Функция закрытия попапа при нажатии на кнопку esc */
+function keyHandlerEsc(evt, openedPopup) {
+
+  if(evt.key === "Escape"){
+     closePopup(openedPopup);
+  }
+}
+
+/** Функция закрытия попапа при нажатии на кнопку х или overlay */
+function initClosePopupListeners(allPopups) {
+  allPopups.forEach((popup) => {
+    const closeButton = popup.querySelector(".popup__close");
+  
+    closeButton.addEventListener("click", () => closePopup(popup));
+    popup.addEventListener("click", (evt) => {
+      if (evt.target === popup) {
+        closePopup(popup);
+      }
+    });
+  })
+}
+
+initClosePopupListeners(allPopups);
+
 cardForm.addEventListener("submit", handleNewCardFormSubmit); //Обработка событий сохранения изменений при добавлении фото и описания
 profileForm.addEventListener("submit", handleProfileFormSubmit); //Обработка событий сохранения изменений при изменении поля "о себе" и "имя"
-closeEditFormButton.addEventListener("click", closeEditFormPopup); //Закрытие попапа при нажатии на кнопку Х
-newCardButtonClose.addEventListener("click", closeNewCardFormPopup);
-popupImageCloseButton.addEventListener("click", closePopupImage);
 
 profileEditButton.addEventListener("click", openEditProfilePopup);
 newCardButton.addEventListener("click", openNewCardFormPopup);
+
+enableValidation(config);

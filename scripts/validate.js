@@ -1,4 +1,4 @@
-//Функция, которая добавляет класс с ошибкой
+/** Функция, которая добавляет класс с ошибкой */
 function showInputError(profileForm, inputElement, errorMessage, config) {
   const profileFormError = profileForm.querySelector(
     `.${inputElement.id}-error`
@@ -9,7 +9,7 @@ function showInputError(profileForm, inputElement, errorMessage, config) {
   profileFormError.classList.add(config.editFormErrorActiveClass);
 }
 
-// Функция, которая удаляет класс с ошибкой
+/** Функция, которая удаляет класс с ошибкой */
 function hideInputError(profileForm, inputElement, config) {
   const profileFormError = profileForm.querySelector(
     `.${inputElement.id}-error`
@@ -20,8 +20,8 @@ function hideInputError(profileForm, inputElement, config) {
   profileFormError.textContent = "";
 }
 
-// Функция, которая проверяет валидность поля
-function InputValidity(profileForm, inputElement, config) {
+/** Функция, которая проверяет валидность поля */
+function inputValidity(profileForm, inputElement, config) {
   if (!inputElement.validity.valid) {
     showInputError(
       profileForm,
@@ -34,7 +34,8 @@ function InputValidity(profileForm, inputElement, config) {
   }
 }
 
-function setEventListeners(profileForm, closeButton, config) {
+/** Функция, которая добавляет обработчики полям формы */
+function setEventListeners(popup, profileForm, closeButton, config) {
   const inputList = Array.from(
     profileForm.querySelectorAll(config.editFormFieldSelector)
   );
@@ -44,20 +45,17 @@ function setEventListeners(profileForm, closeButton, config) {
   toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
-      InputValidity(profileForm, inputElement, config);
+      inputValidity(profileForm, inputElement, config);
       toggleButtonState(inputList, buttonElement);
     });
   });
-
-  closeButton.addEventListener("click", () => {
-    resetValidation(profileForm, config);
-  });
 }
 
-function enableValidation(config) {
+function getAllPopups(config) {
   const popupList = Array.from(document.querySelectorAll(config.popupClass))
     .map((popup) => {
       return {
+        popup: popup,
         profileForm: popup.querySelector(config.editFormSelector),
         closeButton: popup.querySelector(config.popupCloseButtonClass),
       };
@@ -66,31 +64,29 @@ function enableValidation(config) {
       return popup.profileForm;
     });
 
+  return popupList;
+}
+
+/** Функция, которая включает валидацию для всех полей формы */
+function enableValidation(config) {
+  const popupList = getAllPopups(config);
+
   popupList.forEach((popup) => {
     popup.profileForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    setEventListeners(popup.profileForm, popup.closeButton, config);
+    setEventListeners(popup.popup, popup.profileForm, popup.closeButton, config);
   });
 }
 
-enableValidation({
-  popupClass: ".popup",
-  popupCloseButtonClass: ".popup__close",
-  editFormSelector: ".edit-form",
-  editFormFieldSelector: ".edit-form__field",
-  editFormErrorActiveClass: "edit-form__field-error_active",
-  editFormTypeErrorClass: "edit-form__field_type_error",
-  editFormSubmitSelector: ".edit-form__submit",
-});
-
+/** Функция, принимающая массив полей */
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
 
-//Функция включения и выключения кнопки
+/** Функция включения и выключения кнопки */
 function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add("button_disabled");
@@ -99,6 +95,7 @@ function toggleButtonState(inputList, buttonElement) {
   }
 }
 
+/** Функция отключения валидации при повторном открытии попапа */
 function resetValidation(profileForm, config) {
   const resetInputValidity = Array.from(
     profileForm.querySelectorAll(config.editFormFieldSelector)
