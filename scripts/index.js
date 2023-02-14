@@ -31,35 +31,29 @@ const config = {
   editFormErrorActiveClass: "edit-form__field-error_active",
   editFormTypeErrorClass: "edit-form__field_type_error",
   editFormSubmitSelector: ".edit-form__submit",
+  buttonDisabledClass: "button_disabled",
 };
 
-
-const allPopups = [
-  popupEditForm,
-  popupNewCardForm,
-  popupImage,
-];
+const allPopups = [popupEditForm, popupNewCardForm, popupImage];
 
 function openPopup(popupElement) {
-  //аргументом в функцию передаем элемент popup, который мы открываем и коллбэк, выполняемый после открытия
+  //аргументом в функцию передаем элемент popup, который мы открываем
   popupElement.classList.add("popup_opened");
-  
-  document.addEventListener("keydown", (evt) => keyHandlerEsc(evt, popupElement));
+
+  document.addEventListener("keydown", keyHandlerEsc);
 }
 
-function openEditProfilePopup() {
-  openPopup(popupEditForm);
+function openEditablePopup(popup, setInitialValuesCallback) {
+  openPopup(popup);
 
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileProfession.textContent;
-}
+  setInitialValuesCallback(); // проставляем первоначальные значения
 
-/** Функция открытия popup для добавления фото */
-
-function openNewCardFormPopup() {
-  openPopup(popupNewCardForm);
-
-  cardForm.reset();
+  const inputList = Array.from(
+    popup.querySelectorAll(config.editFormFieldSelector)
+  );
+  const buttonElement = popup.querySelector(config.editFormSubmitSelector);
+  toggleButtonState(inputList, buttonElement, config);
+  resetValidation(popup, config);
 }
 
 function openImagePopup(cardData) {
@@ -81,7 +75,7 @@ function handleProfileFormSubmit(evt) {
   profileName.textContent = name;
   profileProfession.textContent = job;
 
-  closeEditFormPopup();
+  closePopup(popupEditForm);
 }
 
 /** Функция сохранения изменений, вносимых пользователем, закрытие модального окна при нажатии на кнопку 'создать'*/
@@ -98,7 +92,7 @@ function handleNewCardFormSubmit(evt) {
 
   placesContainer.prepend(newCard);
 
-  closeNewCardFormPopup();
+  closePopup(popupNewCardForm);
 }
 
 /**функция создания новой карточки*/
@@ -131,25 +125,11 @@ function createNewCard(cardData) {
 /** Функция закрытия popup */
 function closePopup(popupElement) {
   popupElement.classList.remove("popup_opened");
-  resetValidation(popupElement, config);
 
-  document.removeEventListener("keydown", (evt) => keyHandlerEsc(evt, popupElement));
-}
-
-function closeEditFormPopup() {
-  closePopup(popupEditForm);
-}
-
-function closeNewCardFormPopup() {
-  closePopup(popupNewCardForm);
-}
-
-function closePopupImage() {
-  closePopup(popupImage);
+  document.removeEventListener("keydown", keyHandlerEsc);
 }
 
 /**размещение карточек из массива на странице*/
-
 const placesElements = initialCards.map((elem) => {
   const newCard = createNewCard(elem);
   return newCard;
@@ -158,10 +138,10 @@ const placesElements = initialCards.map((elem) => {
 placesContainer.prepend(...placesElements);
 
 /** Функция закрытия попапа при нажатии на кнопку esc */
-function keyHandlerEsc(evt, openedPopup) {
-
-  if(evt.key === "Escape"){
-     closePopup(openedPopup);
+function keyHandlerEsc(evt) {
+  const openedPopup = document.querySelector(".popup_opened");
+  if (evt.key === "Escape") {
+    closePopup(openedPopup);
   }
 }
 
@@ -169,14 +149,14 @@ function keyHandlerEsc(evt, openedPopup) {
 function initClosePopupListeners(allPopups) {
   allPopups.forEach((popup) => {
     const closeButton = popup.querySelector(".popup__close");
-  
+
     closeButton.addEventListener("click", () => closePopup(popup));
-    popup.addEventListener("click", (evt) => {
+    popup.addEventListener("mousedown", (evt) => {
       if (evt.target === popup) {
         closePopup(popup);
       }
     });
-  })
+  });
 }
 
 initClosePopupListeners(allPopups);
@@ -184,7 +164,16 @@ initClosePopupListeners(allPopups);
 cardForm.addEventListener("submit", handleNewCardFormSubmit); //Обработка событий сохранения изменений при добавлении фото и описания
 profileForm.addEventListener("submit", handleProfileFormSubmit); //Обработка событий сохранения изменений при изменении поля "о себе" и "имя"
 
-profileEditButton.addEventListener("click", openEditProfilePopup);
-newCardButton.addEventListener("click", openNewCardFormPopup);
+profileEditButton.addEventListener("click", () =>
+  openEditablePopup(popupEditForm, () => {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileProfession.textContent;
+  })
+);
+newCardButton.addEventListener("click", () =>
+  openEditablePopup(popupNewCardForm, () => {
+    cardForm.reset();
+  })
+);
 
 enableValidation(config);

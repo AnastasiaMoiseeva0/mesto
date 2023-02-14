@@ -42,11 +42,11 @@ function setEventListeners(popup, profileForm, closeButton, config) {
   const buttonElement = profileForm.querySelector(
     config.editFormSubmitSelector
   );
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, config);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       inputValidity(profileForm, inputElement, config);
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonElement, config);
     });
   });
 }
@@ -75,7 +75,12 @@ function enableValidation(config) {
     popup.profileForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    setEventListeners(popup.popup, popup.profileForm, popup.closeButton, config);
+    setEventListeners(
+      popup.popup,
+      popup.profileForm,
+      popup.closeButton,
+      config
+    );
   });
 }
 
@@ -87,11 +92,13 @@ function hasInvalidInput(inputList) {
 }
 
 /** Функция включения и выключения кнопки */
-function toggleButtonState(inputList, buttonElement) {
+function toggleButtonState(inputList, buttonElement, config) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("button_disabled");
+    buttonElement.classList.add(config.buttonDisabledClass);
+    buttonElement.setAttribute("disabled", true);
   } else {
-    buttonElement.classList.remove("button_disabled");
+    buttonElement.classList.remove(config.buttonDisabledClass);
+    buttonElement.removeAttribute("disabled", false);
   }
 }
 
