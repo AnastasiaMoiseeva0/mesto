@@ -21,7 +21,6 @@ const newCardButton = document.querySelector("#add-card-button");
 const popupEditForm = document.querySelector("#popupEditForm");
 const popupNewCardForm = document.querySelector("#popupNewCardForm");
 const popupImage = document.querySelector("#popupImage");
-const profileForm = document.querySelector("#profileForm");
 
 const placeTemplate = document.querySelector("#place").content; //находим содержимое template
 const placesContainer = document.querySelector("#placesContainer"); //сохраняем в переменную контейнер с карточками
@@ -45,5 +44,3 @@ profileEditButton.addEventListener("click", () => {
 newCardButton.addEventListener("click", () => {
   newCardPopup.open();
 });
-
-// enableValidation(config);
