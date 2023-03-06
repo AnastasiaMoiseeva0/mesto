@@ -6,6 +6,10 @@ class Popup {
   constructor(popupElement) {
     this._popupElement = popupElement;
     this._closeButton = this._popupElement.querySelector(".popup__close");
+
+    this._mousedownHandler = this._mousedownHandler.bind(this);
+    this._keyHandlerEsc = this._keyHandlerEsc.bind(this);
+    this.close = this.close.bind(this);
   }
 
   open() {
@@ -19,15 +23,15 @@ class Popup {
   }
 
   _addEventListeners() {
-    document.addEventListener("keydown", (evt) => { this._keyHandlerEsc(evt); });
-    this._closeButton.addEventListener("click", () => { this.close(); });
-    this._popupElement.addEventListener("mousedown", (evt) => { this._mousedownHandler(evt); });
+    document.addEventListener("keydown", this._keyHandlerEsc);
+    this._closeButton.addEventListener("click", this.close);
+    this._popupElement.addEventListener("mousedown", this._mousedownHandler);
   }
 
   _removeEventListeners() {
-    document.removeEventListener("keydown", (evt) => { this._keyHandlerEsc(evt); });
-    this._closeButton.removeEventListener("click", () => { this.close(); });
-    this._popupElement.removeEventListener("mousedown", (evt) => { this._mousedownHandler(evt); });
+    document.removeEventListener("keydown", this._mousedownHandler);
+    this._closeButton.removeEventListener("click", this.close);
+    this._popupElement.removeEventListener("mousedown", this._mousedownHandler);
   }
 
   /** Функция закрытия попапа при нажатии на кнопку esc */
@@ -53,6 +57,8 @@ class EditablePopup extends Popup {
     
     this._validator = new FormValidator(this._form, this._config);
     this._validator.enable();
+
+    this._onSubmit = this._onSubmit.bind(this);
   }
 
   open() {
@@ -64,15 +70,15 @@ class EditablePopup extends Popup {
 
   _addEventListeners() {
     super._addEventListeners();
-    this._popupElement.addEventListener("submit", (evt) => { this._onSubmit(evt); }); //Обработка событий сохранения изменений
+    this._popupElement.addEventListener("submit", this._onSubmit); //Обработка событий сохранения изменений
   }
 
   _removeEventListeners() {
     super._removeEventListeners();
-    this._popupElement.removeEventListener("submit", (evt) => { this._onSubmit(evt); }); //Обработка событий сохранения изменений
+    this._popupElement.removeEventListener("submit", this._onSubmit); //Обработка событий сохранения изменений
   }
 
-  _onSubmit(evt) {
+  _onSubmit (evt) {
     evt.preventDefault();
   }
 }
@@ -87,9 +93,9 @@ class EditProfilePopup extends EditablePopup {
   }
   
   open() {
-    super.open();
     this._nameInput.value = this._profileName.textContent;
     this._jobInput.value = this._profileProfession.textContent;
+    super.open();
   }
 
   _onSubmit(evt) {
@@ -114,8 +120,8 @@ class NewCardPopup extends EditablePopup {
   }
 
   open() {
-    super.open();
     this._form.reset();
+    super.open();
   }
 
   _onSubmit(evt) {
