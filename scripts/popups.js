@@ -1,5 +1,6 @@
 export { ImagePopup, EditProfilePopup, NewCardPopup };
 import {Card} from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 
 class Popup {
   constructor(popupElement) {
@@ -45,22 +46,20 @@ class Popup {
 }
 
 class EditablePopup extends Popup {
-  constructor(popup, config) {
+  constructor(popup, config, form) {
     super(popup);
     this._config = config;
+    this._form = form;
+    
+    this._validator = new FormValidator(this._form, this._config);
+    this._validator.enable();
   }
 
   open() {
     super.open();
 
-    const inputList = Array.from(
-      this._popupElement.querySelectorAll(this._config.editFormFieldSelector)
-    );
-    const buttonElement = this._popupElement.querySelector(
-      this._config.editFormSubmitSelector
-    );
-    toggleButtonState(inputList, buttonElement, this._config);
-    resetValidation(this._popupElement, this._config);
+    this._validator.toggleButtonState();
+    this._validator.resetValidation();
   }
 
   _addEventListeners() {
@@ -73,12 +72,14 @@ class EditablePopup extends Popup {
     this._popupElement.removeEventListener("submit", (evt) => { this._onSubmit(evt); }); //Обработка событий сохранения изменений
   }
 
-  _onSubmit() {}
+  _onSubmit(evt) {
+    evt.preventDefault();
+  }
 }
 
 class EditProfilePopup extends EditablePopup {
   constructor(popup, config) {
-    super(popup, config);
+    super(popup, config, popup.querySelector("#profileForm"));
     this._nameInput = popup.querySelector("#nameInput");
     this._jobInput = popup.querySelector("#jobInput"); 
     this._profileName = document.querySelector("#profileName");
@@ -92,8 +93,7 @@ class EditProfilePopup extends EditablePopup {
   }
 
   _onSubmit(evt) {
-    evt.preventDefault();
-
+    super._onSubmit(evt);
     const name = this._nameInput.value;
     const job = this._jobInput.value; 
 
@@ -105,22 +105,21 @@ class EditProfilePopup extends EditablePopup {
 
 class NewCardPopup extends EditablePopup {
   constructor(popup, config, placeTemplate, imagePopup, placesContainer) {
-    super(popup, config);
+    super(popup, config, document.querySelector("#cardForm"));
     this._placeTitleInput = popup.querySelector("#placeTitleInput");
     this._urlInput = document.querySelector("#urlInput");
     this._placesContainer = placesContainer;
-    this._cardForm = document.querySelector("#cardForm");
     this._placeTemplate = placeTemplate;
     this._imagePopup = imagePopup;
   }
 
   open() {
     super.open();
-    this._cardForm.reset();
+    this._form.reset();
   }
 
   _onSubmit(evt) {
-    evt.preventDefault();
+    super._onSubmit(evt);
     const titleFromInput = this._placeTitleInput.value;
     const linkFromInput = this._urlInput.value;
     const cardData = { name: titleFromInput, link: linkFromInput };
