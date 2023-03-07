@@ -1,5 +1,4 @@
 export { PopupWithImage, PopupWithForm };
-import {Card} from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
 
 class Popup {
@@ -87,58 +86,6 @@ class PopupWithForm extends Popup {
     this.close();
   }
 }
-
-// class EditProfilePopup extends PopupWithForm {
-//   constructor(popup, config) {
-//     super(popup, config, popup.querySelector(".edit-form_profile"));
-//     this._nameInput = popup.querySelector(".edit-form__field_name-input");
-//     this._jobInput = popup.querySelector(".edit-form__field_job-input"); 
-//     this._profileName = document.querySelector(".profile__name");
-//     this._profileProfession = document.querySelector(".profile__profession");
-//   }
-  
-//   open() {
-//     this._nameInput.value = this._profileName.textContent;
-//     this._jobInput.value = this._profileProfession.textContent;
-//     super.open();
-//   }
-
-//   _onSubmit(evt) {
-//     super._onSubmit(evt);
-//     const name = this._nameInput.value;
-//     const job = this._jobInput.value; 
-
-//     this._profileName.textContent = name;
-//     this._profileProfession.textContent = job;
-//     this.close();
-//   }
-// }
-
-// class NewCardPopup extends PopupWithForm {
-//   constructor(popup, config, placeTemplate, imagePopup, placesContainer) {
-//     super(popup, config, document.querySelector(".edit-form_card"));
-//     this._placeTitleInput = popup.querySelector(".edit-form__field_title-input");
-//     this._urlInput = document.querySelector(".edit-form__field_url-input");
-//     this._placesContainer = placesContainer;
-//     this._placeTemplate = placeTemplate;
-//     this._imagePopup = imagePopup;
-//   }
-
-//   open() {
-//     this._form.reset();
-//     super.open();
-//   }
-
-//   _onSubmit(evt) {
-//     super._onSubmit(evt);
-//     const titleFromInput = this._placeTitleInput.value;
-//     const linkFromInput = this._urlInput.value;
-//     const cardData = { name: titleFromInput, link: linkFromInput };
-//     const newCard = new Card(cardData, this._placeTemplate, this._imagePopup);
-//     this._placesContainer.prepend(newCard.getElement());
-//     this.close();
-//   }
-// }
 
 class PopupWithImage extends Popup {
   constructor(popup) {
