@@ -85,11 +85,11 @@ class EditablePopup extends Popup {
 
 class EditProfilePopup extends EditablePopup {
   constructor(popup, config) {
-    super(popup, config, popup.querySelector("#profileForm"));
-    this._nameInput = popup.querySelector("#nameInput");
-    this._jobInput = popup.querySelector("#jobInput"); 
-    this._profileName = document.querySelector("#profileName");
-    this._profileProfession = document.querySelector("#profileProfession");
+    super(popup, config, popup.querySelector(".edit-form_profile"));
+    this._nameInput = popup.querySelector(".edit-form__field_name-input");
+    this._jobInput = popup.querySelector(".edit-form__field_job-input"); 
+    this._profileName = document.querySelector(".profile__name");
+    this._profileProfession = document.querySelector(".profile__profession");
   }
   
   open() {
@@ -111,9 +111,9 @@ class EditProfilePopup extends EditablePopup {
 
 class NewCardPopup extends EditablePopup {
   constructor(popup, config, placeTemplate, imagePopup, placesContainer) {
-    super(popup, config, document.querySelector("#cardForm"));
-    this._placeTitleInput = popup.querySelector("#placeTitleInput");
-    this._urlInput = document.querySelector("#urlInput");
+    super(popup, config, document.querySelector(".edit-form_card"));
+    this._placeTitleInput = popup.querySelector(".edit-form__field_title-input");
+    this._urlInput = document.querySelector(".edit-form__field_url-input");
     this._placesContainer = placesContainer;
     this._placeTemplate = placeTemplate;
     this._imagePopup = imagePopup;
@@ -138,8 +138,8 @@ class NewCardPopup extends EditablePopup {
 class ImagePopup extends Popup {
   constructor(popup) {
     super(popup);
-    this._popupCaption = document.querySelector("#popupCaption");
-    this._popupPhoto = document.querySelector("#popupPhoto");
+    this._popupCaption = document.querySelector(".popup__caption");
+    this._popupPhoto = document.querySelector(".popup__photo");
   }
 
   open(cardData) {

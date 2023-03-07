@@ -14,19 +14,19 @@ const config = {
 };
 
 /** Элементы Найдены по id и сохранены в переменные */
-const profileEditButton = document.querySelector("#edit-profile-button");
+const profileEditButton = document.querySelector(".profile__edit-button");
 
-const newCardButton = document.querySelector("#add-card-button");
+const newCardButton = document.querySelector(".profile__add");
 
-const popupEditForm = document.querySelector("#popupEditForm");
-const popupNewCardForm = document.querySelector("#popupNewCardForm");
-const popupImage = document.querySelector("#popupImage");
+const popupEditForm = document.querySelector(".popup_form_edit-profile");
+const popupNewCardForm = document.querySelector(".popup_form_new-card");
+const popupImage = document.querySelector(".popup_image");
 
-const placeTemplate = document.querySelector("#place").content; //находим содержимое template
-const placesContainer = document.querySelector("#placesContainer"); //сохраняем в переменную контейнер с карточками
+const placeTemplate = document.querySelector(".place_template").content; //находим содержимое template
+const placesContainer = document.querySelector(".places"); //сохраняем в переменную контейнер с карточками
 
 const imagePopup = new ImagePopup(popupImage);
-const editProfilePopup = new EditProfilePopup(popupEditForm, config);
+const profilePopup = new EditProfilePopup(popupEditForm, config);
 const newCardPopup = new NewCardPopup(popupNewCardForm, config, placeTemplate, popupImage, placesContainer)
 
 /**размещение карточек из массива на странице*/
@@ -38,7 +38,7 @@ const placesElements = initialCards.map((elem) => {
 placesContainer.prepend(...placesElements);
 
 profileEditButton.addEventListener("click", () => {
- editProfilePopup.open();
+ profilePopup.open();
 });
 newCardButton.addEventListener("click", () => {
   newCardPopup.open();

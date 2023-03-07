@@ -15,21 +15,21 @@
         <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Аватар пользователя">
         <div class="profile__info">
           <div class="profile__header">
-            <h1 id="profileName" class="profile__name">Жак-Ив Кусто</h1>
-            <button type="button" id="edit-profile-button" class="button button_border_slim button_size_small profile__edit-button"></button>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button type="button" class="button button_border_slim button_size_small profile__edit-button"></button>
           </div>
-          <p id="profileProfession" class="profile__profession">Исследователь океана</p>
+          <p class="profile__profession">Исследователь океана</p>
         </div>
-        <button type="button" id="add-card-button" class="button button_border_wide profile__add"></button>
+        <button type="button" class="button button_border_wide profile__add"></button>
       </section>
-      <section id="placesContainer" class="places">
-        <template id="place">
+      <section class="places">
+        <template class="place_template">
           <article class="place">
-            <button type="button" id="button-trash" class="button button_background_transparent button_size_small place__icon-trash"></button>
-            <img id="urlPlace" class="place__photo">
+            <button type="button" class="button button_background_transparent button_size_small place__icon-trash"></button>
+            <img class="place__photo place_url">
             <div class="place__info">
-              <h2 id="titlePlace" class="place__title"></h2>
-              <button type="button" id="button-like" class="button button_background_transparent place__icon-like"></button>
+              <h2 class="place__title"></h2>
+              <button type="button" class="button button_background_transparent place__icon-like"></button>
             </div>
           </article>
         </template>
@@ -38,38 +38,38 @@
     <footer class="footer">
       <p class="footer__logo">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div id="popupEditForm" class="popup"> 
+    <div class="popup popup_form_edit-profile"> 
       <div class="popup__container popup__container_white">
-        <button type="button" id="closeEditFormButton" class="button button_background_transparent popup__close"></button>
-        <form id="profileForm" class="edit-form" name="editForm" novalidate>
+        <button type="button" class="button button_background_transparent popup__close"></button>
+        <form class="edit-form edit-form_profile" name="editForm" novalidate>
           <h2 class="edit-form__title">Редактировать профиль</h2>
-          <input id="nameInput" class="edit-form__field" placeholder="Имя" type="text" name="nameInput" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+          <input id="nameInput" class="edit-form__field edit-form__field_name-input" placeholder="Имя" type="text" name="nameInput" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
           <span class="nameInput-error"></span>
-          <input id="jobInput" class="edit-form__field" placeholder="О себе" type="text" name="jobInput" value="Исследователь океана" minlength="2" maxlength="200" required>
+          <input id="jobInput" class="edit-form__field edit-form__field_job-input" placeholder="О себе" type="text" name="jobInput" value="Исследователь океана" minlength="2" maxlength="200" required>
           <span class="jobInput-error"></span>
           <button type="submit" class="edit-form__submit button">Сохранить</button>
         </form>
       </div>
     </div>
-    <div id="popupNewCardForm" class="popup">
+    <div class="popup popup_form_new-card">
       <div class="popup__container popup__container_white">
-        <button type="button" id="newCardButtonClose" class="button button_background_transparent popup__close"></button>
-        <form id="cardForm" class="edit-form" name="cardForm" novalidate>
+        <button type="button" class="button button_background_transparent popup__close"></button>
+        <form class="edit-form edit-form_card" name="cardForm" novalidate>
           <h2 class="edit-form__title">Новое место</h2>
-          <input id="placeTitleInput" class="edit-form__field" type="text" placeholder="Название" name="titleInput" minlength="2" maxlength="30" required>
+          <input id="placeTitleInput" class="edit-form__field edit-form__field_title-input" type="text" placeholder="Название" name="titleInput" minlength="2" maxlength="30" required>
           <span class="placeTitleInput-error"></span>
-          <input id="urlInput" class="edit-form__field" type="url" placeholder="Ссылка на картинку" name="urlInput" required>
+          <input id="urlInput" class="edit-form__field edit-form__field_url-input" type="url" placeholder="Ссылка на картинку" name="urlInput" required>
           <span class="urlInput-error"></span>
           <button type="submit" class="edit-form__submit button">Создать</button>
         </form>
       </div>
     </div>
-    <div id="popupImage" class="popup popup_background-dark">
+    <div class="popup popup_background-dark popup_image">
       <div class="popup__container popup__container_wide">
-        <button type="button" id="popupImageCloseButton" class="button button_background_transparent popup__close"></button>
+        <button type="button" class="button button_background_transparent popup__close"></button>
         <div>
-          <img id="popupPhoto" class="popup__photo">
-          <figcaption id="popupCaption" class="popup__caption"></figcaption>
+          <img class="popup__photo">
+          <figcaption class="popup__caption"></figcaption>
         </div>
       </div>
     </div>
