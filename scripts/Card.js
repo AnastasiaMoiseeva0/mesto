@@ -3,40 +3,50 @@ export class Card {
     this._placeTemplate = placeTemplate;
     this._cardData = cardData;
     this._imagePopup = imagePopup;
+    this._card = this._getCard();
+    this._buttonLike = this._card.querySelector(".place__icon-like");
+    
+  }
+  
+  _getCard() {
+    return this._placeTemplate.firstElementChild.cloneNode(true);
   }
 
   getElement() {
-    const newCard = this._placeTemplate.firstElementChild.cloneNode(true);
-    const newCardImage = newCard.querySelector(".place_url");
-    this._setEventListeners(newCard, newCardImage);
-    this._setAttributes(newCard, newCardImage);
-    return newCard;
+    const newCardImage = this._card.querySelector(".place_url");
+    this._setEventListeners(newCardImage);
+    this._setAttributes(newCardImage);
+    return this._card;
+  }
+  
+  setButtonLike() {
+    this._buttonLike.classList.toggle("place__icon-like_active");
   }
 
-  _setAttributes(newCard, newCardImage) {
+  removeCard() {
+    this._card.remove();
+  }
+
+  _setAttributes(newCardImage) {
     newCardImage.src = this._cardData.link;
-    newCard.querySelector(".place__title").textContent = this._cardData.name;
+    this._card.querySelector(".place__title").textContent = this._cardData.name;
     newCardImage.alt = this._cardData.name;
   }
 
-  _setEventListeners(newCard, newCardImage) {
-    this._addButtonLike(newCard);
-    this._removeCard(newCard); 
+  _setEventListeners(newCardImage) {
+
+    this._buttonLike.addEventListener("click", () => {
+      this.setButtonLike();
+    });
+
+    this._card
+    .querySelector(".place__icon-trash")
+    .addEventListener("click", () => {
+     this.removeCard();
+    });
+
     newCardImage.addEventListener("click", () => {
       this._imagePopup.open(this._cardData);
     });
-  }
-
-  _addButtonLike(newCard) {
-    const buttonLike = newCard.querySelector(".place__icon-like");
-    buttonLike.addEventListener("click", () => {
-      buttonLike.classList.toggle("place__icon-like_active");
-    });
-  }
-
-  _removeCard(newCard) {
-    newCard.querySelector(".place__icon-trash").addEventListener("click", () => {
-        newCard.remove();
-      });
   }
 }

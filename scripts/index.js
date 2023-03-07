@@ -1,6 +1,6 @@
 import { Card } from './Card.js';
-
-import { ImagePopup, EditProfilePopup, NewCardPopup } from './popups.js'; 
+import { PopupWithImage, PopupWithForm } from './popups.js'; 
+import {initialCards} from './cards.js';
 
 const config = {
   popupClass: ".popup",
@@ -25,9 +25,38 @@ const popupImage = document.querySelector(".popup_image");
 const placeTemplate = document.querySelector(".place_template").content; //находим содержимое template
 const placesContainer = document.querySelector(".places"); //сохраняем в переменную контейнер с карточками
 
-const imagePopup = new ImagePopup(popupImage);
-const profilePopup = new EditProfilePopup(popupEditForm, config);
-const newCardPopup = new NewCardPopup(popupNewCardForm, config, placeTemplate, popupImage, placesContainer)
+const editProfileForm = document.querySelector(".edit-form_profile");
+const nameInput = document.querySelector(".edit-form__field_name-input");
+const jobInput = document.querySelector(".edit-form__field_job-input"); 
+const profileName = document.querySelector(".profile__name");
+const profileProfession = document.querySelector(".profile__profession");
+
+const newCardForm = document.querySelector(".edit-form_card");
+const placeTitleInput = document.querySelector(".edit-form__field_title-input");
+const urlInput = document.querySelector(".edit-form__field_url-input");
+
+const imagePopup = new PopupWithImage(popupImage);
+
+const profilePopup = new PopupWithForm(popupEditForm, config, editProfileForm, () => {
+  const name = nameInput.value;
+  const job = jobInput.value; 
+
+  profileName.textContent = name;
+  profileProfession.textContent = job;
+}, () => {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileProfession.textContent;
+});
+
+const newCardPopup = new PopupWithForm(popupNewCardForm, config, newCardForm, () => {
+  const titleFromInput = placeTitleInput.value;
+  const linkFromInput = urlInput.value;
+  const cardData = { name: titleFromInput, link: linkFromInput };
+  const newCard = new Card(cardData, placeTemplate, imagePopup);
+  placesContainer.prepend(newCard.getElement());
+}, () => {
+  newCardForm.reset();
+})
 
 /**размещение карточек из массива на странице*/
 const placesElements = initialCards.map((elem) => {
