@@ -1,5 +1,4 @@
 export { PopupWithImage, PopupWithForm };
-import { FormValidator } from "./FormValidator.js";
 
 class Popup {
   constructor(popupElement) {
@@ -49,16 +48,14 @@ class Popup {
 }
 
 class PopupWithForm extends Popup {
-  constructor(popup, config, form, onSubmit, onOpen) {
+  constructor(popup, config, validator, onSubmit, onOpen) {
     super(popup);
     this._config = config;
-    this._form = form;
     this._onSubmit = this._onSubmit.bind(this);
     this._onOpenCallBack = onOpen;
     this._onSubmitCallback = onSubmit;
     
-    this._validator = new FormValidator(this._form, this._config);
-    this._validator.enable();
+    this._validator = validator;
   }
 
   open() {

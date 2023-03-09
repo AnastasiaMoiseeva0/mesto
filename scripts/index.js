@@ -1,6 +1,7 @@
 import { Card } from './Card.js';
 import { PopupWithImage, PopupWithForm } from './popups.js'; 
 import {initialCards} from './cards.js';
+import { FormValidator } from "./FormValidator.js";
 
 const config = {
   popupClass: ".popup",
@@ -36,8 +37,12 @@ const placeTitleInput = document.querySelector(".edit-form__field_title-input");
 const urlInput = document.querySelector(".edit-form__field_url-input");
 
 const imagePopup = new PopupWithImage(popupImage);
+const editProfileFormValidator = new FormValidator(editProfileForm, config);
+const newCardFormValidator = new FormValidator(newCardForm, config);
+editProfileFormValidator.enable();
+newCardFormValidator.enable();
 
-const profilePopup = new PopupWithForm(popupEditForm, config, editProfileForm, () => {
+const profilePopup = new PopupWithForm(popupEditForm, config, editProfileFormValidator, () => {
   const name = nameInput.value;
   const job = jobInput.value; 
 
@@ -48,7 +53,7 @@ const profilePopup = new PopupWithForm(popupEditForm, config, editProfileForm, (
   jobInput.value = profileProfession.textContent;
 });
 
-const newCardPopup = new PopupWithForm(popupNewCardForm, config, newCardForm, () => {
+const newCardPopup = new PopupWithForm(popupNewCardForm, config, newCardFormValidator, () => {
   const titleFromInput = placeTitleInput.value;
   const linkFromInput = urlInput.value;
   const cardData = { name: titleFromInput, link: linkFromInput };

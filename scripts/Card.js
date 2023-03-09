@@ -25,6 +25,7 @@ export class Card {
 
   removeCard() {
     this._card.remove();
+    this._card = null;
   }
 
   _setAttributes(newCardImage) {
