@@ -1,15 +1,10 @@
-export class Card {
-  constructor(cardData, placeTemplate, imagePopup) {
+export default class Card {
+  constructor(cardData, placeTemplate, handleCardClick) {
     this._placeTemplate = placeTemplate;
     this._cardData = cardData;
-    this._imagePopup = imagePopup;
     this._card = this._getCard();
     this._buttonLike = this._card.querySelector(".place__icon-like");
-    
-  }
-  
-  _getCard() {
-    return this._placeTemplate.firstElementChild.cloneNode(true);
+    this._handleCardClick = handleCardClick;
   }
 
   getElement() {
@@ -26,6 +21,10 @@ export class Card {
   removeCard() {
     this._card.remove();
     this._card = null;
+  }
+
+  _getCard() {
+    return this._placeTemplate.firstElementChild.cloneNode(true);
   }
 
   _setAttributes(newCardImage) {
@@ -47,7 +46,7 @@ export class Card {
     });
 
     newCardImage.addEventListener("click", () => {
-      this._imagePopup.open(this._cardData);
+      this._handleCardClick(this._cardData);
     });
   }
 }
