@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
   </head>
   <body class="page">
     <header class="header">
-        <img class="header__logo" src="./images/mesto-logo.svg" alt="Логотип Mesto Russia">
+        <img class="header__logo" src="<%=require('./images/mesto-logo.svg')%>" alt="Логотип Mesto Russia">
     </header>
     <main>
       <section class="profile">
-        <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Аватар пользователя">
+        <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар пользователя">
         <div class="profile__info">
           <div class="profile__header">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -73,6 +72,5 @@
         </div>
       </div>
     </div>
-    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
