@@ -4,17 +4,17 @@ export default class Card {
     this._cardData = cardData;
     this._card = this._getCard();
     this._buttonLike = this._card.querySelector(".place__icon-like");
+    this._newCardImage = this._card.querySelector(".place_url");
     this._handleCardClick = handleCardClick;
   }
 
   getElement() {
-    const newCardImage = this._card.querySelector(".place_url");
-    this._setEventListeners(newCardImage);
-    this._setAttributes(newCardImage);
+    this._setEventListeners();
+    this._setAttributes();
     return this._card;
   }
-  
-  setButtonLike() {
+
+  _toggleLike() {
     this._buttonLike.classList.toggle("place__icon-like_active");
   }
 
@@ -27,25 +27,24 @@ export default class Card {
     return this._placeTemplate.firstElementChild.cloneNode(true);
   }
 
-  _setAttributes(newCardImage) {
-    newCardImage.src = this._cardData.link;
+  _setAttributes() {
+    this._newCardImage.src = this._cardData.link;
     this._card.querySelector(".place__title").textContent = this._cardData.name;
-    newCardImage.alt = this._cardData.name;
+    this._newCardImage.alt = this._cardData.name;
   }
 
-  _setEventListeners(newCardImage) {
-
+  _setEventListeners() {
     this._buttonLike.addEventListener("click", () => {
-      this.setButtonLike();
+      this._toggleLike();
     });
 
     this._card
-    .querySelector(".place__icon-trash")
-    .addEventListener("click", () => {
-     this.removeCard();
-    });
+      .querySelector(".place__icon-trash")
+      .addEventListener("click", () => {
+        this.removeCard();
+      });
 
-    newCardImage.addEventListener("click", () => {
+    this._newCardImage.addEventListener("click", () => {
       this._handleCardClick(this._cardData);
     });
   }

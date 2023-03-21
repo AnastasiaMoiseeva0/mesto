@@ -2,7 +2,7 @@ export default class FormValidator {
   constructor(form, config) {
     this._form = form;
     this._config = config;
-    
+
     this._inputList = Array.from(
       this._form.querySelectorAll(this._config.editFormFieldSelector)
     );
@@ -11,7 +11,7 @@ export default class FormValidator {
     );
   }
 
-  enable() {
+  enableValidation() {
     this._setEventListeners();
   }
 
@@ -28,10 +28,7 @@ export default class FormValidator {
 
   /** Функция отключения валидации при повторном открытии попапа */
   resetValidation() {
-    const resetInputValidity = Array.from(
-      this._form.querySelectorAll(this._config.editFormFieldSelector)
-    );
-    resetInputValidity.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
   }
@@ -54,32 +51,25 @@ export default class FormValidator {
 
   _inputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(
-        inputElement,
-        inputElement.validationMessage,
-      );
+      this._showInputError(inputElement, inputElement.validationMessage);
     } else {
       this._hideInputError(inputElement);
     }
   }
 
   /** Функция, которая добавляет класс с ошибкой */
- _showInputError(inputElement, errorMessage) {
-    const formError = this._form.querySelector(
-      `.${inputElement.id}-error`
-    );
-  
+  _showInputError(inputElement, errorMessage) {
+    const formError = this._form.querySelector(`.${inputElement.id}-error`);
+
     inputElement.classList.add(this._config.editFormTypeErrorClass);
     formError.textContent = errorMessage;
     formError.classList.add(this._config.editFormErrorActiveClass);
   }
-  
+
   /** Функция, которая удаляет класс с ошибкой */
   _hideInputError(inputElement) {
-    const formError = this._form.querySelector(
-      `.${inputElement.id}-error`
-    );
-  
+    const formError = this._form.querySelector(`.${inputElement.id}-error`);
+
     inputElement.classList.remove(this._config.editFormTypeErrorClass);
     formError.classList.remove(this._config.editFormErrorActiveClass);
     formError.textContent = "";
