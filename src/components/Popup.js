@@ -3,8 +3,8 @@ export default class Popup {
     this._popupElement = popupElement;
     this._closeButton = this._popupElement.querySelector(".popup__close");
 
-    this._mousedownHandler = this._mousedownHandler.bind(this);
-    this._keyHandlerEsc = this._keyHandlerEsc.bind(this);
+    this._handleOverlay = this._handleOverlay.bind(this);
+    this._handleEscapeKey = this._handleEscapeKey.bind(this);
     this.close = this.close.bind(this);
   }
 
@@ -19,27 +19,26 @@ export default class Popup {
   }
 
   _addEventListeners() {
-    document.addEventListener("keydown", this._keyHandlerEsc);
+    document.addEventListener("keydown", this._handleEscapeKey);
     this._closeButton.addEventListener("click", this.close);
-    this._popupElement.addEventListener("mousedown", this._mousedownHandler);
+    this._popupElement.addEventListener("mousedown", this._handleOverlay);
   }
 
   _removeEventListeners() {
-    document.removeEventListener("keydown", this._mousedownHandler);
-    document.removeEventListener("keydown", this._keyHandlerEsc);
+    document.removeEventListener("keydown", this._handleEscapeKey);
     this._closeButton.removeEventListener("click", this.close);
-    this._popupElement.removeEventListener("mousedown", this._mousedownHandler);
+    this._popupElement.removeEventListener("mousedown", this._handleOverlay);
   }
 
   /** Функция закрытия попапа при нажатии на кнопку esc */
-  _keyHandlerEsc(evt) {
+  _handleEscapeKey(evt) {
     if (evt.key === "Escape") {
       this.close();
     }
   }
 
   /** Функция закрытия попапа при нажатии на кнопку х или overlay */
-  _mousedownHandler(evt) {
+  _handleOverlay(evt) {
     if (evt.target === this._popupElement) {
       this.close();
     }

@@ -1,12 +1,12 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popup, config, validator, onSubmit, onOpen) {
+  constructor(popup, config, validator, handleSubmit, handleOpen) {
     super(popup);
     this._config = config;
-    this._onSubmit = this._onSubmit.bind(this);
-    this._onOpenCallBack = onOpen;
-    this._onSubmitCallback = onSubmit;
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleOpenCallBack = handleOpen;
+    this._handleSubmitCallback = handleSubmit;
 
     this._form = this._popupElement.querySelector(config.editFormSelector);
 
@@ -20,8 +20,8 @@ export default class PopupWithForm extends Popup {
   open() {
     super.open();
 
-    if (this._onOpenCallBack) {
-      this._onOpenCallBack();
+    if (this._handleOpenCallBack) {
+      this._handleOpenCallBack();
     }
 
     this._validator.toggleButtonState();
@@ -51,19 +51,19 @@ export default class PopupWithForm extends Popup {
 
   _addEventListeners() {
     super._addEventListeners();
-    this._form.addEventListener("submit", this._onSubmit); //Обработка событий сохранения изменений
+    this._form.addEventListener("submit", this._handleSubmit); //Обработка событий сохранения изменений
   }
 
   _removeEventListeners() {
     super._removeEventListeners();
-    this._popupElement.removeEventListener("submit", this._onSubmit); //Обработка событий сохранения изменений
+    this._form.removeEventListener("submit", this._handleSubmit); //Обработка событий сохранения изменений
   }
 
-  _onSubmit(evt) {
+  _handleSubmit(evt) {
     evt.preventDefault();
     
-    if (this._onSubmitCallback) {
-      this._onSubmitCallback(this._getInputValues());
+    if (this._handleSubmitCallback) {
+      this._handleSubmitCallback(this._getInputValues());
     }
 
     this.close();
