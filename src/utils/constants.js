@@ -14,6 +14,7 @@ export const newCardButton = document.querySelector(".profile__add");
 export const popupEditForm = document.querySelector(".popup_form_edit-profile");
 export const popupNewCardForm = document.querySelector(".popup_form_new-card");
 export const popupImage = document.querySelector(".popup_image");
+export const popupDeleteCard = document.querySelector(".popup_delete-card");
   
 export const placeTemplate = document.querySelector(".place_template").content;
 export const placesContainer = document.querySelector(".places");

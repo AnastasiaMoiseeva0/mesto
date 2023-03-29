@@ -19,8 +19,10 @@ import {
   profileProfession,
   newCardForm,
   newCardButton,
+  popupDeleteCard,
 } from "../utils/constants.js";
 import { Api } from '../components/Api.js';
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-63",
@@ -56,12 +58,26 @@ const cardList = new Section(
 );
 
 function createCard(elem) {
-  const newCard = new Card(elem, placeTemplate, (cardData) => {
-    imagePopup.open(cardData);
-  });
+  const newCard = new Card(elem, placeTemplate,
+    (cardData) => {
+      imagePopup.open(cardData);
+    },
+    (cardData) => {
+      confirmationDeletePopup.open(cardData._id);
+    }
+  );
 
   return newCard.getElement();
 }
+
+const confirmationDeletePopup = new PopupWithConfirmation(popupDeleteCard, config, (id) => {
+  api.deleteCard(id).then(json => {
+    
+  })
+  .catch(error => {
+    console.log(error)
+  });
+});
 
 const imagePopup = new PopupWithImage(popupImage);
 const editProfileFormValidator = new FormValidator(editProfileForm, config);
