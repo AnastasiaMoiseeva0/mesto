@@ -20,6 +20,29 @@ import {
   newCardForm,
   newCardButton,
 } from "../utils/constants.js";
+import { Api } from '../components/Api.js';
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-63",
+  headers: {
+    authorization: "110366df-b38b-45be-88c4-715aacdd3349",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getUserInfo().then(json => {
+  userInfo.setUserInfo({ name: json.name, job: json.about });
+})
+.catch(error => {
+  console.log(error)
+});
+
+api.getInitialCards().then(json => {
+  cardList.renderItems(json);
+})
+.catch(error => {
+  console.log(error)
+});
 
 const cardList = new Section(
   {
@@ -40,8 +63,6 @@ function createCard(elem) {
   return newCard.getElement();
 }
 
-cardList.renderItems();
-
 const imagePopup = new PopupWithImage(popupImage);
 const editProfileFormValidator = new FormValidator(editProfileForm, config);
 const newCardFormValidator = new FormValidator(newCardForm, config);
@@ -55,7 +76,9 @@ const profilePopup = new PopupWithForm(
   config,
   editProfileFormValidator,
   ({ nameInput, jobInput }) => {
-    userInfo.setUserInfo({ name: nameInput, job: jobInput });
+    api.setUserInfo({ name: nameInput, about: jobInput }).then(json => {
+      userInfo.setUserInfo({ name: json.name, job: json.about });
+    });
   },
   () => {
     const info = userInfo.getUserInfo();
@@ -72,8 +95,9 @@ const newCardPopup = new PopupWithForm(
   config,
   newCardFormValidator,
   ({ titleInput, urlInput }) => {
-    const cardData = { name: titleInput, link: urlInput };
-    cardList.addItem(createCard(cardData));
+    api.createCards({ name: titleInput, link: urlInput }).then(cardData => {
+      cardList.addItem(createCard(cardData))
+    });
   }
 );
 
