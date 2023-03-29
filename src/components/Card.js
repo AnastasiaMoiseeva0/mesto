@@ -6,6 +6,7 @@ export default class Card {
     this._buttonLike = this._card.querySelector(".place__icon-like");
     this._newCardImage = this._card.querySelector(".place_url");
     this._handleCardClick = handleCardClick;
+    this._likeCounter = this._card.querySelector(".place__like-counter");
   }
 
   getElement() {
@@ -31,6 +32,7 @@ export default class Card {
     this._newCardImage.src = this._cardData.link;
     this._card.querySelector(".place__title").textContent = this._cardData.name;
     this._newCardImage.alt = this._cardData.name;
+    this._likeCounter.textContent = this._cardData.likes.length;
   }
 
   _setEventListeners() {
