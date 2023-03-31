@@ -1,12 +1,24 @@
 export default class Section {
-  constructor({ items, renderer }, container) {
+  constructor({ renderer }, container) {
     this._renderer = renderer;
-    this._initialArray = items;
+    this._items = [];
     this._container = container;
   }
 
-  addItem(placesElement) {
-    this._container.prepend(placesElement);
+  getById(id) {
+    return this._items.find(card => card.getId() === id);
+  }
+
+  addItem(card) {
+    this._container.prepend(card.getElement());
+    this._items.unshift(card);
+  }
+
+  removeItem(id) {
+    const indexToRemove = this._items.findIndex(card => card.getId() === id);
+    let [ card ] = this._items.splice(indexToRemove, 1);
+
+    card.removeCard();
   }
 
   renderItems(cards) {
