@@ -1,0 +1,15 @@
+.profile__edit-avatar {
+    position: relative;
+}
+
+@media screen and (min-width: 769px) {
+    .profile__edit-avatar {
+        margin-right: 30px;
+    }
+}
+
+.profile__edit-avatar:hover {
+    opacity: .2;
+    transition: transform 0.8s ease-out;
+    z-index: 1;
+}

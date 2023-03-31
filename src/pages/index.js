@@ -19,8 +19,10 @@ import {
   profileProfession,
   newCardForm,
   newCardButton,
+  popupDeleteCard,
 } from "../utils/constants.js";
 import { Api } from '../components/Api.js';
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-63",
@@ -31,7 +33,7 @@ const api = new Api({
 });
 
 api.getUserInfo().then(json => {
-  userInfo.setUserInfo({ name: json.name, job: json.about });
+  userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id });
 })
 .catch(error => {
   console.log(error)
@@ -46,22 +48,54 @@ api.getInitialCards().then(json => {
 
 const cardList = new Section(
   {
-    items: initialCards,
     renderer: (elem) => {
-      const newCardElement = createCard(elem);
-      cardList.addItem(newCardElement);
+      const newCard = createCard(elem);
+      cardList.addItem(newCard);
     },
   },
   placesContainer
 );
 
 function createCard(elem) {
-  const newCard = new Card(elem, placeTemplate, (cardData) => {
-    imagePopup.open(cardData);
-  });
+  const canBeDeleted = elem.owner._id === userInfo.getId();
+  const liked = elem.likes.some(like => like._id === userInfo.getId());
+  
+  const newCard = new Card(
+    elem,
+    placeTemplate,
+    canBeDeleted,
+    liked,
+    (cardData) => {
+      imagePopup.open(cardData);
+    },
+    (cardData) => {
+      confirmationDeletePopup.open(cardData._id);
+    },
+    (cardData, liked) => {
+      const method = liked ? api.setLikeCard.bind(api) : api.deleteLikeCard.bind(api);
 
-  return newCard.getElement();
+      method(cardData._id).then((json) => {
+        const card = cardList.getById(cardData._id);
+        card.toggleLike();
+        card.updateData(json);
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    }
+  );
+
+  return newCard;
 }
+
+const confirmationDeletePopup = new PopupWithConfirmation(popupDeleteCard, config, (id) => {
+  api.deleteCard(id).then(() => {
+    cardList.removeItem(id);
+  })
+  .catch(error => {
+    console.log(error)
+  });
+});
 
 const imagePopup = new PopupWithImage(popupImage);
 const editProfileFormValidator = new FormValidator(editProfileForm, config);

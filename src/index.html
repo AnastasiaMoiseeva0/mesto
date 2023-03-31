@@ -11,7 +11,10 @@
     </header>
     <main>
       <section class="profile">
-        <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар пользователя">
+        <div class="profile__edit-avatar">
+          <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар пользователя">
+          <button class="button button_background_transparent button_size_medium profile__avatar-button"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__header">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -73,6 +76,26 @@
           <img class="popup__photo">
           <figcaption class="popup__caption"></figcaption>
         </div>
+      </div>
+    </div>
+    <div class="popup popup_delete-card">
+      <div class="popup__container popup__container_white">
+        <form class="edit-form edit-form_card" name="cardForm" novalidate>
+          <button type="button" class="button button_background_transparent popup__close"></button>
+          <h2 class="popup__title">Вы уверены?</h2>
+          <button type="submit" class="edit-form__submit button">Да</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_form_edit-avatar"> 
+      <div class="popup__container popup__container_white">
+        <button type="button" class="button button_background_transparent popup__close"></button>
+        <form class="edit-form edit-form_profile" name="editForm" novalidate>
+          <h2 class="edit-form__title">Обновить аватар</h2>
+          <input id="nameInput" class="edit-form__field edit-form__field_name-input" placeholder="Ссылка на картинку" type="text" name="nameInput" minlength="2" maxlength="40" required>
+          <span class="nameInput-error"></span>
+          <button type="submit" class="edit-form__submit button">Сохранить</button>
+        </form>
       </div>
     </div>
   </body>
