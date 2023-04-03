@@ -94,10 +94,11 @@ export class Api {
     });
   }
 
-  setNewAvatar() {
+  setNewAvatar(avatarInfo) {
     return fetch(`${this.options.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.options.headers,
+      body: JSON.stringify(avatarInfo),
     }).then((res) => {
       if (res.ok) {
         return res.json();
