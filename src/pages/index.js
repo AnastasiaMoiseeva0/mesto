@@ -4,7 +4,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import { initialCards } from "../utils/cards.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   config,
@@ -20,6 +19,10 @@ import {
   newCardForm,
   newCardButton,
   popupDeleteCard,
+  newAvatarButton,
+  popupNewAvatar,
+  newAvatarForm,
+  avatarImage
 } from "../utils/constants.js";
 import { Api } from '../components/Api.js';
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
@@ -33,7 +36,7 @@ const api = new Api({
 });
 
 api.getUserInfo().then(json => {
-  userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id });
+  userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id, link: json.avatar });
 })
 .catch(error => {
   console.log(error)
@@ -100,10 +103,12 @@ const confirmationDeletePopup = new PopupWithConfirmation(popupDeleteCard, confi
 const imagePopup = new PopupWithImage(popupImage);
 const editProfileFormValidator = new FormValidator(editProfileForm, config);
 const newCardFormValidator = new FormValidator(newCardForm, config);
-const userInfo = new UserInfo({ profileName, profileProfession });
+const userInfo = new UserInfo({ profileName, profileProfession, newAvatar: avatarImage });
+const avatarFormValidator = new FormValidator(newAvatarForm, config);
 
 editProfileFormValidator.enableValidation();
 newCardFormValidator.enableValidation();
+avatarFormValidator.enableValidation();
 
 const profilePopup = new PopupWithForm(
   popupEditForm,
@@ -111,7 +116,8 @@ const profilePopup = new PopupWithForm(
   editProfileFormValidator,
   ({ nameInput, jobInput }) => {
     api.setUserInfo({ name: nameInput, about: jobInput }).then(json => {
-      userInfo.setUserInfo({ name: json.name, job: json.about });
+      userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id, link: json.avatar });
+      profilePopup.close();
     });
   },
   () => {
@@ -124,13 +130,31 @@ const profilePopup = new PopupWithForm(
   }
 );
 
+const avatarPopup = new PopupWithForm(
+  popupNewAvatar,
+  config,
+  avatarFormValidator,
+  ({avatarInput}) => {
+    api.setNewAvatar({ avatar: avatarInput }).then(json => {
+      userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id, link: json.avatar });
+      avatarPopup.close();
+    });
+  },
+  () => {
+    avatarPopup.setInputValues({
+      avatarInput: '',
+    });
+  }
+);
+
 const newCardPopup = new PopupWithForm(
   popupNewCardForm,
   config,
   newCardFormValidator,
   ({ titleInput, urlInput }) => {
     api.createCards({ name: titleInput, link: urlInput }).then(cardData => {
-      cardList.addItem(createCard(cardData))
+      cardList.addItem(createCard(cardData));
+      newCardPopup.close();
     });
   }
 );
@@ -140,4 +164,7 @@ profileEditButton.addEventListener("click", () => {
 });
 newCardButton.addEventListener("click", () => {
   newCardPopup.open();
+});
+newAvatarButton.addEventListener("click", () => {
+  avatarPopup.open();
 });
