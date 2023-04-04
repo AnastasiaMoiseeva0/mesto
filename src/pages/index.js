@@ -35,15 +35,10 @@ const api = new Api({
   },
 });
 
-api.getUserInfo().then(json => {
-  userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id, link: json.avatar });
-})
-.catch(error => {
-  console.log(error)
-});
-
-api.getInitialCards().then(json => {
-  cardList.renderItems(json);
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([user, cards]) => {
+  userInfo.setUserInfo({ name: user.name, job: user.about, id: user._id, link: user.avatar });
+  cardList.renderItems(cards.reverse());
 })
 .catch(error => {
   console.log(error)
@@ -52,7 +47,7 @@ api.getInitialCards().then(json => {
 const cardList = new Section(
   {
     renderer: (elem) => {
-      const newCard = createCard(elem);
+      const newCard = createCard(elem).getElement();
       cardList.addItem(newCard);
     },
   },
@@ -71,14 +66,13 @@ function createCard(elem) {
     (cardData) => {
       imagePopup.open(cardData);
     },
-    (cardData) => {
-      confirmationDeletePopup.open(cardData._id);
+    (card) => {
+      confirmationDeletePopup.open(card);
     },
-    (cardData, liked) => {
+    (card, liked) => {
       const method = liked ? api.setLikeCard.bind(api) : api.deleteLikeCard.bind(api);
 
-      method(cardData._id).then((json) => {
-        const card = cardList.getById(cardData._id);
+      method(card.getId()).then((json) => {
         card.toggleLike();
         card.updateData(json);
       })
@@ -91,13 +85,14 @@ function createCard(elem) {
   return newCard;
 }
 
-const confirmationDeletePopup = new PopupWithConfirmation(popupDeleteCard, config, (id) => {
-  api.deleteCard(id).then(() => {
-    cardList.removeItem(id);
+const confirmationDeletePopup = new PopupWithConfirmation(popupDeleteCard, config, (card) => {
+  api.deleteCard(card.getId()).then(() => {
+    card.removeCard();
+    confirmationDeletePopup.close();
   })
   .catch(error => {
     console.log(error)
-  });
+  })
 });
 
 const imagePopup = new PopupWithImage(popupImage);
@@ -118,6 +113,12 @@ const profilePopup = new PopupWithForm(
     api.setUserInfo({ name: nameInput, about: jobInput }).then(json => {
       userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id, link: json.avatar });
       profilePopup.close();
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    .finally(() => {
+      profilePopup.setLoading(false);
     });
   },
   () => {
@@ -138,6 +139,12 @@ const avatarPopup = new PopupWithForm(
     api.setNewAvatar({ avatar: avatarInput }).then(json => {
       userInfo.setUserInfo({ name: json.name, job: json.about, id: json._id, link: json.avatar });
       avatarPopup.close();
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    .finally(() => {
+      avatarPopup.setLoading(false);
     });
   },
   () => {
@@ -153,8 +160,15 @@ const newCardPopup = new PopupWithForm(
   newCardFormValidator,
   ({ titleInput, urlInput }) => {
     api.createCards({ name: titleInput, link: urlInput }).then(cardData => {
-      cardList.addItem(createCard(cardData));
+      const newCard = createCard(cardData).getElement();
+      cardList.addItem(newCard);
       newCardPopup.close();
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    .finally(() => {
+      newCardPopup.setLoading(false);
     });
   }
 );

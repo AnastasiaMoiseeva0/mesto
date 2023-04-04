@@ -32,7 +32,6 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    this.setLoading(false);
     this._form.reset();
     super.close();
   }
@@ -76,9 +75,8 @@ export default class PopupWithForm extends Popup {
     evt.preventDefault();
     
     if (this._handleSubmitCallback) {
+      this.setLoading(true);
       this._handleSubmitCallback(this._getInputValues());
     } 
-
-    this.setLoading(true);
   }
 }
