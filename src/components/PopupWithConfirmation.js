@@ -8,9 +8,9 @@ export default class PopupWithConfirmation extends Popup {
     this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  open(id) {
+  open(item) {
     super.open();
-    this._id = id;
+    this._item = item;
   }
 
   _addEventListeners() {
@@ -27,9 +27,7 @@ export default class PopupWithConfirmation extends Popup {
     evt.preventDefault();
     
     if (this._handleSubmitCallback) {
-      this._handleSubmitCallback(this._id);
+      this._handleSubmitCallback(this._item);
     }
-
-    this.close();
   }
 }

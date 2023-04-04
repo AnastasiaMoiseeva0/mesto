@@ -58,12 +58,12 @@ export default class Card {
   _setEventListeners() {
     this._buttonLike.addEventListener("click", () => {
       this._liked = !this._liked;
-      this._handleCardLike(this._cardData, this._liked);
+      this._handleCardLike(this, this._liked);
     });
 
     this._buttonTrash
       .addEventListener("click", () => {
-        this._handleCardDelete(this._cardData);
+        this._handleCardDelete(this);
       });
 
     this._newCardImage.addEventListener("click", () => {
