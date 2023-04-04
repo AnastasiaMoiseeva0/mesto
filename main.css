@@ -13,25 +13,29 @@
 .popup__container_white{background-color:#fff;border-radius:10px;box-shadow:0 0 25px rgba(0,0,0,.15);box-sizing:border-box;padding-left:22px;padding-right:22px;width:282px}@media screen and (min-width:769px){.popup__container_white{padding-left:36px;padding-right:36px;width:430px}}
 .popup__photo{height:100%;width:100%}
 .popup__caption{color:#fff;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:400;line-height:15px;padding-top:10px}
+.popup__title{font-family:Inter,Arial,sans-serif;font-size:24px;font-weight:900;line-height:29px;margin:0;padding-top:34px}
 .edit-form{display:flex;flex-direction:column}
-.edit-form__field{border:none;border-bottom:1px solid rgba(0,0,0,.2);color:#000;font-family:Inter,Arial,sans-serif;font-size:14px;font-weight:400;line-height:17px;margin-top:30px;padding-bottom:9px}
+.edit-form__field{border:none;border-bottom:1px solid rgba(0,0,0,.2);color:#000;font-family:Inter,Arial,sans-serif;font-size:14px;font-weight:400;line-height:17px;margin-top:30px;padding-bottom:9px}.edit-form__field:last-of-type{margin-bottom:10px}
 .edit-form__field-error_active{color:red;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:400;line-height:15px}
 .edit-form__field_type_error{border-bottom:1px solid red}
 .edit-form__title{color:#000;font-family:Inter,Arial,sans-serif;font-size:18px;font-weight:900;line-height:22px;margin:0;padding-bottom:45px;padding-top:25px}@media screen and (min-width:769px){.edit-form__title{font-size:24px;line-height:29px;padding-bottom:17px;padding-top:34px}}
-.edit-form__submit{border:none;border-radius:2px;margin-bottom:25px;margin-top:45px}.edit-form__submit:hover{opacity:.8}@media screen and (min-width:769px){.edit-form__submit{margin-bottom:37px;margin-top:48px}}
+.edit-form__submit{border:none;border-radius:2px;margin-bottom:25px;margin-top:45px}.edit-form__submit:hover{opacity:.8}@media screen and (min-width:769px){.edit-form__submit{margin-bottom:37px;margin-top:38px}}
 .profile{display:grid;grid-auto-flow:row;justify-items:center;margin:42px auto 36px}@media screen and (min-width:769px){.profile{grid-template-columns:max-content auto 150px;justify-items:left;margin-bottom:51px;margin-top:38px}}
 .profile__edit-button{background-image:url(f0dd9c51cf799b8b82d2.svg);background-position:50%;background-repeat:no-repeat;background-size:8px;margin-bottom:8px;position:absolute;right:-28px}@media screen and (min-width:769px){.profile__edit-button{background-size:10px;position:static}}
-.profile__avatar{border-radius:50%;height:120px;-o-object-fit:cover;object-fit:cover;width:120px}@media screen and (min-width:769px){.profile__avatar{margin-right:30px}}
+.profile__avatar{border-radius:50%;height:120px;-o-object-fit:cover;object-fit:cover;width:120px}
 .profile__info{align-items:center;display:flex;flex-direction:column;text-align:center}@media screen and (min-width:769px){.profile__info{align-items:normal;text-align:start}}
 .profile__header{align-items:flex-end;display:flex;position:relative}
 .profile__name{color:#fff;font-family:Inter,Arial,sans-serif;font-size:27px;font-weight:500;line-height:33px;margin:25px 0 0;max-width:189px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media screen and (min-width:769px){.profile__name{font-size:42px;line-height:48px;margin-top:23px;max-width:294px}}
 .profile__profession{color:#fff;font-family:Inter,Arial,sans-serif;font-size:14px;font-weight:400;line-height:17px;margin:7px 0 0;max-width:292px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media screen and (min-width:769px){.profile__profession{font-size:18px;line-height:22px;margin-top:8px;max-width:336px}}
 .profile__add{background-image:url(d5d6f8af0577b9c95ee4.svg);background-position:50%;background-repeat:no-repeat;background-size:cover;background-size:16px;margin-top:33px;width:282px}@media screen and (min-width:769px){.profile__add{background-size:22px;margin-top:34px;width:150px}}
+.profile__avatar-button{background-image:url(ae1a976ddb506239e9f0.svg);position:absolute;right:47px;top:47px;visibility:hidden}.profile__edit-avatar:hover .profile__avatar-button{opacity:1;visibility:visible;z-index:2}
+.profile__edit-avatar{cursor:pointer;position:relative}@media screen and (min-width:769px){.profile__edit-avatar{margin-right:30px}}.profile__edit-avatar:before{background-color:rgba(0,0,0,.8);bottom:0;content:" ";left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity .2s ease-out}.profile__edit-avatar:hover:before{opacity:1}
 .button_border_slim{border:1px solid #fff}
 .button_border_wide{border:2px solid #fff;border-radius:2px}
 .button_size_small{height:18px;margin-left:10px;width:18px}@media screen and (min-width:769px){.button_size_small{height:24px;margin-left:18px;width:24px}}
 .button_background_transparent{background-color:transparent;border:none}
 .button_disabled{background-color:#fff;border:2px solid #000;color:#000;opacity:.2;pointer-events:none}
+.button_size_medium{height:26px;width:26px}
 .places{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));justify-items:center;row-gap:20px}@media screen and (min-width:769px){.places{-moz-column-gap:17px;column-gap:17px;grid-template-columns:repeat(2,max-content);justify-content:center}}@media screen and (min-width:1023px){.places{-moz-column-gap:17px;column-gap:17px;grid-template-columns:repeat(3,minmax(0,1fr))}}
 .place{background-color:#fff;border-radius:10px;display:flex;flex-direction:column;overflow:hidden;position:relative;width:282px}
 .place__icon-like{background-image:url(1ad06e85f169668a1f36.svg);height:19px;width:22px}.place__icon-like:hover{opacity:.5}
@@ -40,7 +44,9 @@
 .place__info{align-items:center;display:flex;justify-content:space-between;padding:24px 20px 26px 21px}
 .popup__photo-wrapper{height:100%}
 .place__photo{height:282px;-o-object-fit:cover;object-fit:cover;width:282px}.place__photo:hover{cursor:pointer}
+.place__like{align-items:center;display:flex;flex-direction:column}
 .place__title{color:#000;font-family:Inter,Arial,sans-serif;font-size:24px;font-weight:900;line-height:29px;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:190px}
+.place__like-counter{font-family:Inter,Arial,sans-serif;font-size:13px;font-weight:400;line-height:16px;margin:0;padding-top:3px}
 .footer{padding:48px 19px 36px}@media screen and (min-width:769px){.footer{padding:68px 0 60px}}
 .footer__logo{color:#545454;font-family:Inter;font-size:14px;font-weight:400;line-height:17px;margin:0}@media screen and (min-width:769px){.footer__logo{font-size:18px;line-height:22px}}
 
